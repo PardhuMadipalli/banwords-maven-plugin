@@ -9,17 +9,18 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Pardhu Madipalli
+ */
 @Mojo(
                 name = "banwords",
-                defaultPhase = LifecyclePhase.COMPILE,
-                threadSafe = true
+                defaultPhase = LifecyclePhase.COMPILE
                 )
 public class BanWords extends AbstractMojo {
 
-
     @Parameter(property = "projectroot", defaultValue = ".")
     private String projectRootDirectory;
-    private final String bannedWordsFilePath = "bannedWords.txt";
+    private String bannedWordsFilePath = "bannedWords.txt";
     private List<String> bannedWords;
     private List<File> allFilesList = new ArrayList<>();
 
@@ -34,13 +35,14 @@ public class BanWords extends AbstractMojo {
                 .count();
         }
         if (bannedWordsFileCount == 0) {
-            getLog().info("No banned words found");
+            logDebug("No banned words found");
         } else {
             throw new MojoFailureException("Banned words have been found in "+bannedWordsFileCount + " files.");
         }
     }
 
     public List<String> setBannedWords () {
+
         try (BufferedReader br = new BufferedReader(new InputStreamReader(getClass()
                 .getClassLoader()
                 .getResourceAsStream(this.bannedWordsFilePath)))) {
@@ -51,7 +53,7 @@ public class BanWords extends AbstractMojo {
                 bannedWordsList.add(bannedWord);
                 bannedWord = br.readLine();
             }
-            getLog().info("Total number of registered banned words are " + bannedWordsList.size());
+            logDebug("Total number of registered banned words are " + bannedWordsList.size());
             return bannedWordsList;
         } catch (IOException e) {
             return new ArrayList<>();
@@ -89,6 +91,9 @@ public class BanWords extends AbstractMojo {
 
     public void setProjectRootDirectory(String projectRootDirectory) {
         this.projectRootDirectory = projectRootDirectory;
+    }
+    public void setBannedWordsFilePath(String bannedWordsFilePath) {
+        this.bannedWordsFilePath = bannedWordsFilePath;
     }
 
     private void logDebug(String meesage) {

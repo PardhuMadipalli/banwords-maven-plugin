@@ -1,1 +1,1 @@
-This is a file that contains a banned word called bannedword1 blacklist
+This is a file that contains a banned word called bannedword1
