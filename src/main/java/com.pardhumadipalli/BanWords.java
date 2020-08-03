@@ -11,6 +11,8 @@ import java.util.List;
 
 /**
  * @author Pardhu Madipalli
+ *
+ * The plugin can be used to help check discriminatory words in the project.
  */
 @Mojo(
                 name = "banwords",

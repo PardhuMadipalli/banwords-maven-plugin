@@ -12,6 +12,19 @@
     <description>A maven plugin to ban words that are discriminatory to certain classes, genders or communities.</description>
     <url>https://github.com/PardhuMadipalli/banwords-maven-plugin</url>
 
+    <scm>
+        <connection>scm:git:https://github.com/PardhuMadipalli/banwords-maven-plugin.git</connection>
+        <developerConnection>scm:git:https://github.com/PardhuMadipalli/banwords-maven-plugin.git</developerConnection>
+        <url>https://github.com/PardhuMadipalli/banwords-maven-plugin</url>
+    </scm>
+
+    <issueManagement>
+        <url>https://github.com/PardhuMadipalli/banwords-maven-plugin/issues</url>
+        <system>GitHub</system>
+    </issueManagement>
+    <inceptionYear>
+        2020
+    </inceptionYear>
     <licenses>
         <license>
             <name>Apache 2.0 License</name>
@@ -114,6 +127,15 @@
             </plugin>
         </plugins>
     </build>
+<!--    <reporting>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-plugin-plugin</artifactId>-->
+<!--                <version>2.5.1</version>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </reporting>-->
     <packaging>maven-plugin</packaging>
     <repositories>
         <repository>

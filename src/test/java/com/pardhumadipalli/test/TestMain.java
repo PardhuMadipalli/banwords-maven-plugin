@@ -10,11 +10,13 @@ import org.junit.jupiter.api.*;
 public class TestMain {
 
 	private Log log;
+	private final String resourcesPath = "src/test/resources/";
+	private final String sampleBannedWordsPath = "sampleBannedWords.txt";
 
 	@BeforeEach
 	public void printTestStartMessage(TestInfo testInfo) {
 		getLog().info("-------------------------------------------------------");
-		getLog().info("T E S T : "+testInfo.getDisplayName());
+		getLog().info(" T E S T : "+testInfo.getDisplayName());
 		getLog().info("-------------------------------------------------------");
 
 	}
@@ -23,9 +25,8 @@ public class TestMain {
 	@DisplayName("With Banned words")
 	public void testWithBannedWords(){
 		BanWords banWords = new BanWords();
-		String resourcesPath = "src/test/resources/";
 		banWords.setProjectRootDirectory(resourcesPath+"withBannedWords/");
-		banWords.setBannedWordsFilePath("sampleBannedWords.txt");
+		banWords.setBannedWordsFilePath(sampleBannedWordsPath);
 		boolean receivedMojoException = false;
 		try {
 			Assertions.assertNotNull(banWords);
@@ -42,9 +43,8 @@ public class TestMain {
 	@DisplayName("Without banned words")
 	public void testWithoutBannedWords(){
 		BanWords banWords = new BanWords();
-		String resourcesPath = "src/test/resources/";
 		banWords.setProjectRootDirectory(resourcesPath+"withoutBannedWords/");
-		banWords.setBannedWordsFilePath("sampleBannedWords.txt");
+		banWords.setBannedWordsFilePath(sampleBannedWordsPath);
 		boolean receivedMojoException = false;
 		try {
 			banWords.execute();
@@ -59,10 +59,9 @@ public class TestMain {
 	@DisplayName("Invalid root directory path")
 	public void invalidProjectRootDir(){
 		BanWords banWords = new BanWords();
-		String resourcesPath = "src/test/resources/";
 		// Give a non existing filepath
 		banWords.setProjectRootDirectory(resourcesPath+"withoutBannedWords/hello.txt");
-		banWords.setBannedWordsFilePath("sampleBannedWords.txt");
+		banWords.setBannedWordsFilePath(sampleBannedWordsPath)	;
 		boolean receivedMojoException = false;
 		try {
 			banWords.execute();
