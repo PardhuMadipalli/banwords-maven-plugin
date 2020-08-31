@@ -1,8 +1,8 @@
-package com.pardhumadipalli.banwords.test;
+package com.github.pardhumadipalli.banwords.test;
 
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.SystemStreamLog;
-import com.pardhumadipalli.banwords.BanWords;
+import com.github.pardhumadipalli.banwords.BanWords;
 import org.apache.maven.plugin.logging.Log;
 import org.junit.jupiter.api.*;
 

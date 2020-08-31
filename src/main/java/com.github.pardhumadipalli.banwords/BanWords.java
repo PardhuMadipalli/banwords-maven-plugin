@@ -1,4 +1,4 @@
-package com.pardhumadipalli.banwords;
+package com.github.pardhumadipalli.banwords;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
@@ -17,7 +17,7 @@ import java.util.Objects;
  * @since v0.1.0
  */
 @Mojo(
-                name = "banwords",
+                name = "com.github.pardhumadipalli.banwords",
                 defaultPhase = LifecyclePhase.COMPILE
                 )
 public class BanWords extends AbstractMojo {
@@ -159,7 +159,7 @@ public class BanWords extends AbstractMojo {
     }
 
     /**
-     * Set the additional banwords words that are not there in the default banwords.txt file.
+     * Set the additional pardhumadipalli.github.pardhumadipalli.github.io.com.github.pardhumadipalli.banwords words that are not there in the default pardhumadipalli.github.pardhumadipalli.github.io.com.github.pardhumadipalli.banwords.txt file.
      * <p>
      *     The method is intended to use only for testing.
      *     This method is not used in actual implementation of the plugin.
