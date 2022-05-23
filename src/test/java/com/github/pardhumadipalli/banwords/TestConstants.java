@@ -1,4 +1,4 @@
-package com.github.pardhumadipalli.banwords.test;
+package com.github.pardhumadipalli.banwords;
 
 public interface TestConstants {
     String resourcesPath 			            = "src/test/resources/";
