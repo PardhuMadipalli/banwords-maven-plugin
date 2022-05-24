@@ -6,7 +6,7 @@
 
     <groupId>com.github.pardhumadipalli</groupId>
     <artifactId>banwords-maven-plugin</artifactId>
-    <version>0.0.1</version>
+    <version>${revision}</version>
 
     <name>Banwords Maven plugin</name>
     <description>A maven plugin to ban words that are discriminatory to certain classes, genders or communities.</description>
@@ -45,6 +45,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <revision>0.0.1-SNAPSHOT</revision>
     </properties>
 
     <distributionManagement>
@@ -92,6 +93,12 @@
                         <goals>
                             <goal>sign</goal>
                         </goals>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
