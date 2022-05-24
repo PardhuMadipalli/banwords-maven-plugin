@@ -22,5 +22,4 @@ jobs:
           gpg_passphrase: ${{ secrets.GPG_PASSPHRASE }}
           nexus_username: ${{ secrets.nexus_username }}
           nexus_password: ${{ secrets.nexus_password }}
-          maven_goals_phases: "clean versions:set deploy"
-          maven_args: "-DnewVersion=${{ github.event.release.tag_name }}"
+          maven_args: "-Drevision=${{ github.event.release.tag_name }}"
