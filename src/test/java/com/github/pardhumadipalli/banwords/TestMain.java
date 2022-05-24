@@ -12,21 +12,20 @@ import org.junit.jupiter.api.TestInfo;
 import java.util.Collections;
 
 
-public class TestMain {
+public class TestMain extends BaseTest {
 
-	private Log log;
-
-	@BeforeEach
-	void printTestName(TestInfo testInfo) {
-		getLog().info("-------------------------------------------------------");
-		getLog().info("	TEST : "+testInfo.getDisplayName());
-		getLog().info("-------------------------------------------------------");
-		System.setProperty(Constants.SKIP_EXECUTION_PROPERTY, "dummy");
-	}
+//	@BeforeEach
+//	void printTestName(TestInfo testInfo) {
+//		Log log = new SystemStreamLog();
+//		log.info("-------------------------------------------------------");
+//		log.info("	TEST : " + testInfo.getDisplayName());
+//		log.info("-------------------------------------------------------");
+//		System.setProperty(Constants.SKIP_EXECUTION_PROPERTY, "dummy");
+//	}
 
 	@Test
 	@DisplayName("With Banned words")
-	void testWithBannedWords(){
+	void testWithBannedWords() {
 		BanWords banWords = getbanWordsObject("withBannedWords");
 		Assertions.assertThrows(MojoFailureException.class, banWords::execute);
 	}
@@ -48,9 +47,9 @@ public class TestMain {
 
 	@Test
 	@DisplayName("Invalid root directory path")
-	void invalidProjectRootDir(){
+	void invalidProjectRootDir() {
 		// Give a non existing filepath
-		BanWords banWords =	getbanWordsObject( TestConstants.BANNED_WORD_FREE_DIRECTORY + "/hello.txt");
+		BanWords banWords = getbanWordsObject(TestConstants.BANNED_WORD_FREE_DIRECTORY + "/hello.txt");
 		Assertions.assertThrows(MojoFailureException.class, banWords::execute);
 	}
 
@@ -89,10 +88,4 @@ public class TestMain {
 		return banWords;
 	}
 
-	private Log getLog() {
-		if (log == null) {
-			log = new SystemStreamLog();
-		}
-		return this.log;
-	}
 }

@@ -1,5 +1,4 @@
-bannedwords-maven-plugin.iml
-
+*.iml
 .idea/
-
 target/
+settings.xml

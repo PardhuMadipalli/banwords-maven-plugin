@@ -14,7 +14,6 @@ import java.util.Objects;
  * The plugin can be used to help check discriminatory words in the project.
  *
  * @author Pardhu Madipalli
- * @since v0.1.0
  */
 @Mojo(
                 name = Constants.PLUGIN_NAME,

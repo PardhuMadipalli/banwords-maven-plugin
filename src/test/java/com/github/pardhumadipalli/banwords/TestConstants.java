@@ -9,4 +9,8 @@ public interface TestConstants {
 
     String BANNED_WORD_CONTAINING_DIRECTORY     =  "withBannedWords";
     String BANNED_WORD_FREE_DIRECTORY           =  "withoutBannedWords";
+
+    static void log() {
+
+    }
 }
