@@ -1,0 +1,2 @@
+** banwords Maven Plugin **
+Read the instructions at https://github.com/PardhuMadipalli/banwords-maven-plugin/blob/master/README.md

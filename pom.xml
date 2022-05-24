@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.pardhumadipalli</groupId>
+    <groupId>com.github.pardhumadipalli</groupId>
     <artifactId>banwords-maven-plugin</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1</version>
 
     <name>Banwords Maven plugin</name>
     <description>A maven plugin to ban words that are discriminatory to certain classes, genders or communities.</description>
@@ -22,6 +22,7 @@
         <url>https://github.com/PardhuMadipalli/banwords-maven-plugin/issues</url>
         <system>GitHub</system>
     </issueManagement>
+
     <inceptionYear>
         2020
     </inceptionYear>
@@ -46,6 +47,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <build>
         <resources>
             <resource>
@@ -62,6 +70,47 @@
             </resource>
         </resources>
         <plugins>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.8</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.4.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <sourcepath>src/main/java</sourcepath>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -137,12 +186,6 @@
 <!--        </plugins>-->
 <!--    </reporting>-->
     <packaging>maven-plugin</packaging>
-    <repositories>
-        <repository>
-            <id>maven-central</id>
-            <url>https://repo.maven.apache.org/maven2/</url>
-        </repository>
-    </repositories>
     <dependencies>
         <dependency>
             <groupId>org.apache.maven</groupId>
@@ -175,5 +218,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
 </project>

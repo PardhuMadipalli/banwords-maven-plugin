@@ -1,3 +1,5 @@
 This is a sample file
 
 This does not contain any banned words
+
+A new safe word will used to test included words: imagiNAtion
