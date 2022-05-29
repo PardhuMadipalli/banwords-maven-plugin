@@ -9,6 +9,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * The plugin can be used to help check discriminatory words in the project.
@@ -45,20 +46,20 @@ public class BanWords extends AbstractMojo {
     @Override
     public void execute() throws MojoFailureException {
         if (System.getProperty(Constants.SKIP_EXECUTION_PROPERTY) != null &&
-                "true".equals(System.getProperty(Constants.SKIP_EXECUTION_PROPERTY).toLowerCase())) {
+                "true".equalsIgnoreCase(System.getProperty(Constants.SKIP_EXECUTION_PROPERTY))) {
             getLog().info(String.format("Skipping executing %s plugin.", Constants.PLUGIN_NAME));
             return;
         }
-        bannedWords = setBannedWords();
+        bannedWords = getBannedWords();
         getValidFiles(new File(projectRootDirectory));
-        long bannedWordsFileCount=0;
-        if (allFilesList.size()>0) {
-        bannedWordsFileCount  = allFilesList.parallelStream()
-                .filter(this::hasBannedWords)
-                .count();
+        Stream<File> fileStream = allFilesList.stream();
+        if (allFilesList.size() > 100) {
+            // use a parallel stream when there are more than 100 files to check.
+            fileStream  = fileStream.parallel();
         }
+        long bannedWordsFileCount = countBannedWordsInFiles(fileStream);
         if (bannedWordsFileCount == 0) {
-            logDebug("No banned words found");
+            getLog().info("No banned words are found");
         } else {
             throw new MojoFailureException("Banned words have been found in "+bannedWordsFileCount + " files.");
         }
@@ -74,7 +75,7 @@ public class BanWords extends AbstractMojo {
      * </p>
      * @return List of banned words
      */
-    List<String> setBannedWords () {
+    List<String> getBannedWords() {
         excludeWords = excludeWords == null ? new ArrayList<>() : excludeWords;
         try (BufferedReader br = new BufferedReader(new InputStreamReader(Objects.requireNonNull(getClass()
                 .getClassLoader()
@@ -83,7 +84,7 @@ public class BanWords extends AbstractMojo {
             String bannedWord = br.readLine();
             // Verify whether the word is in the excluded list or not
             while (bannedWord != null && !excludeWords.contains(bannedWord)) {
-                logDebug("Banned word: "+bannedWord);
+                getLog().debug("Banned word: " + bannedWord);
                 bannedWordsList.add(bannedWord);
                 bannedWord = br.readLine();
             }
@@ -119,6 +120,10 @@ public class BanWords extends AbstractMojo {
             getLog().error("Could not search the file "+file.getAbsolutePath()+" for banned words");
             return false;
         }
+    }
+
+    private long countBannedWordsInFiles(Stream<File> fileStream) {
+        return fileStream.filter(this::hasBannedWords).count();
     }
 
     void setProjectRootDirectory(String projectRootDirectory) {
