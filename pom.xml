@@ -131,7 +131,7 @@
                     </execution>
                     <execution>
                         <id>coverage-report</id>
-                        <phase>post-integration-test</phase>
+                        <phase>prepare-package</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
@@ -142,6 +142,7 @@
                         <goals>
                             <goal>check</goal>
                         </goals>
+                        <phase>prepare-package</phase>
                         <configuration>
                             <rules>
                                 <rule>
